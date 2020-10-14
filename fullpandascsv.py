@@ -27,6 +27,9 @@ with pd.ExcelWriter('veri.xlsx') as writer:
 
 """ PANDAS NOTLARI"""
 """
+print(yearfilter.set_index('MAKE'))
+
+
 #index bulma ve silme
        yearfilter =  passengerfilter[(passengerfilter['VEHICLE_YEAR'] <= 2020) &(carbrand['VEHICLE_YEAR'] >= 2019) ]
        indexfind = yearfilter[yearfilter['MAKE'].isin(['DODGE'])].index.values
@@ -70,17 +73,28 @@ with pd.ExcelWriter('veri.xlsx') as writer:
 
 #seçilen sütun ve karşılık gelen değerlerin toplanması.örn; Dodge = 9999, Honda = 56777 gibi
        valucountsum =  veri.groupby('MAKE')['VEHICLE_YEAR'].sum().reset_index()
+
 #Değeri büyükten küçüğe sıralama ascending=False ve 0.0 dan büyk olan değerleri göster ve indexi yeniden oluştur
        valucountsum[valucountsum['VEHICLE_YEAR']>0.0].sort_values(by='VEHICLE_YEAR',ascending=False).reset_index()
-#df[df.name != 'Tina'] istenmeyen satırı silme
+
+#istenmeyen satırı silme
+       df[df.name != 'Tina']
+
 #nullcolm = data['CARRIER_CITY'].isnull()
-#print(data['MAKE'].value_counts)
+
+
 #notnullcolm = pd.notnull(data['CARRIER_CITY'])
+
 #--> boş olan isnull boş olmayanları bulmak için notnull kullanılır.
-#data['MAKE'].value_counts() belirli bir sütunda aynı isimdeki ögelerin sayılarını toplar.
-#data['CARRIER_CITY'].dropna() boş olmayan sütunları getirir.
-#df.dropna(subset=['name', 'born']) birden fazla sütunda aynı anda eksik araması yapmak için
-# data.shape[] satır sütun sayısını verir
+
+# belirli bir sütunda aynı isimdeki ögelerin sayılarını toplar.
+       data['MAKE'].value_counts()
+# boş olmayan sütunları getirir.
+       data['CARRIER_CITY'].dropna()
+# birden fazla sütunda aynı anda eksik araması yapmak için
+       df.dropna(subset=['name', 'born'])
+# satır sütun sayısını verir
+        data.shape[]
 #data.index satırların örneğin 0 dan başlayıp 5 te bittiğini 1 er basamak atladığını öğrenebiliriz
 #data.iloc[] istediğimiz satır aralığını getirir.
 # data.head() belli bir satırı getirir

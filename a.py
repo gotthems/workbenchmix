@@ -35,12 +35,32 @@ yearfilter =  passengerfilter[(passengerfilter['VEHICLE_YEAR'] <= 2020) &(carbra
 indexfind = yearfilter[yearfilter['MAKE'].isin(['DODGE'])].index.values
 
 
-indexdel = yearfilter.drop([3100])
 
-print(indexdel)
+tst = yearfilter.groupby('MAKE')['VEHICLE_YEAR'].value_counts()
+
+df = pd.pivot_table(yearfilter, values='NUM_PASSENGERS', 
+                    columns=['VEHICLE_YEAR','MAKE'], index=['MAKE'], aggfunc=sum)
+
+
+total = df.sum()
+total.name = 'Total'
+# Assign sum of all rows of DataFrame as a new Row
+df = df.append(total.transpose())
+
+print(df)
 
 
 
+
+
+
+#sütunu toplama 
+#tüm sütunu toplama-altında gösterme
+#indexi toplama
+#ara toplama
+#gruplandırma yaptıktan sonra toplama
+#kategroi toplama
+#sütunlar arasında fark bulma- karşılaştırma - büyük-küçük eşit - uyumluluk
 
 
 
